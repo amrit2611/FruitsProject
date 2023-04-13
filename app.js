@@ -1,6 +1,12 @@
-const express = require("express")
+const express = require('express');
 
-express().listen('3000', () =>{
-    console.log("The server is running ;)");
+const app = express();
+
+app.get("/home", ()=>{
+    console.log("This is home");
 })
+
+app.listen('3000', ()=>{
+    console.log("Server is running!!!");
+}) 
 
