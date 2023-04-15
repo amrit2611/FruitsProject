@@ -19,3 +19,5 @@ router.get('/home', (req, res)=>{
 router.post('/add', (req, res)=>{
     res.send((req.body.person3.name));
 })
+
+module.exports = router;
