@@ -1,8 +1,20 @@
 const express = require('express');
-
-
+const mongoose = require('mongoose')
 const app = express();
 app.use(express.json());
+
+
+const url = "mongodb+srv://amrit2611:ongodntopothworl@cluster0.ymzlz3l.mongodb.net/test?retryWrites=true&w=majority"
+
+const connectDB = async()=>{
+    try{
+        const conn = await mongoose.connect(url)
+        console.log(`DB connected : ${conn.connection.host}`);
+    }
+    catch (error){
+        console.log("error");
+    }
+}
 
 const userRoutes = require("./routes/user.js");
 
@@ -15,3 +27,4 @@ app.listen('3000', ()=>{
     console.log("Server is running!!!"); 
 }) 
 
+connectDB()
