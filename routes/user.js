@@ -17,6 +17,8 @@ router.get('/home', (req, res)=>{
     })
 })
 
+
+// route to add data to mongodb
 router.post('/add', (req, res)=>{
     const user = new UserModel({
         name: req.body.name,
@@ -31,6 +33,18 @@ router.post('/add', (req, res)=>{
     .catch(err=>{
         
     })
+})
+
+
+// route to retrieve all data from mongodb
+
+router.get('/all', async (req, res)=>{
+    const users = await UserModel.find();
+    try{
+        res.send(users);
+    }catch(err){
+        res.send(err);
+    }
 })
 
 module.exports = router
