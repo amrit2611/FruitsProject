@@ -57,4 +57,16 @@ router.get('/user/:id', async (req,res)=>{
     }
 })
 
+// route to delete data from database
+router.delete('/user/:id', async (req,res)=>{
+    const id = req.params.id
+    const deletedUser = await UserModel.removeListener({
+        _id:id
+    })
+    try{
+        res.send(deletedUser)
+    }catch(err){
+        res.send(err)
+    }
+})
 module.exports = router
