@@ -70,4 +70,22 @@ router.delete('/user/:id', async (req,res)=>{
     }
 })
 
+// route to update data in database
+router.patch('/user/:id', async (req, res) => {
+    const id = req.params.id;
+
+    const update = await UserModel.updateOne(
+        {_id:id},
+        {
+            $set: req.body
+        }
+    )
+
+    try{
+        res.send(update)
+    }catch(err){
+        res.send(err)
+    }
+})
+
 module.exports = router
