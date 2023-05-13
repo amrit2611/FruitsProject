@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const UserModel = require('../models/User')
+const Joi = require("joi")  // validation
+
 
 router.get('/home', (req, res) => {
     res.send({
@@ -20,19 +22,29 @@ router.get('/home', (req, res) => {
 
 // route to add data to mongodb
 router.post('/add', (req, res) => {
-    const user = new UserModel({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    })
-    res.send(user);
-    user.save()
-        .then(resp => {
-            res.send(resp)
-        })
-        .catch(err => {
 
-        })
+    const schema = {
+        name: Joi.string().min(5).required(),
+        email: Joi.string().min(5).email().required(),
+        password: Joi.string().min(6).required()
+    }
+
+    const error = Joi.valid(req.body, schema)
+    res.send(error);
+
+    // const user = new UserModel({
+    //     name: req.body.name,
+    //     email: req.body.email,
+    //     password: req.body.password
+    // })
+    // res.send(user);
+    // user.save()
+    //     .then(resp => {
+    //         res.send(resp)
+    //     })
+    //     .catch(err => {
+
+    //     })
 })
 
 
